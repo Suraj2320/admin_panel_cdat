@@ -70,3 +70,62 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tag Input Field</title>
+  <style>
+    .tag {
+      display: inline-block;
+      background-color: #f2f2f2;
+      padding: 5px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="tagInput" placeholder="Enter tags" />
+  <div id="tagContainer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var tags = []; // Array to store the tags
+
+      // Function to add a tag
+      function addTag(tag) {
+        var tagElement = $('<div class="tag">' + tag + '</div>');
+        $('#tagContainer').append(tagElement);
+      }
+
+      // Function to handle tag input
+      function handleTagInput() {
+        var tag = $('#tagInput').val().trim();
+
+        if (tag !== '') {
+          tags.push(tag); // Add tag to the array
+          addTag(tag); // Add tag to the container
+          $('#tagInput').val(''); // Clear the input field
+        }
+      }
+
+      // Handle tag input when Enter key is pressed
+      $('#tagInput').on('keydown', function(event) {
+        if (event.which === 13 || event.keyCode === 13) {
+          handleTagInput();
+          return false;
+        }
+      });
+
+      // Handle tag input when a comma is entered
+      $('#tagInput').on('input', function() {
+        var value = $(this).val();
+        if (value.slice(-1) === ',') {
+          handleTagInput();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
